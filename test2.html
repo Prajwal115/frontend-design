@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Scroll Features</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: #f5f5f5;
+      overflow-x: hidden;
+    }
+
+    #features {
+      height: 600vh; /* Enough height to scroll through 6 features */
+      position: relative;
+    }
+
+    .feature-container {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: #f5f5f5;
+      z-index: 10;
+      padding: 40px 20px;
+    }
+
+    .feature-container h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      transition: opacity 0.3s ease;
+    }
+
+    .feature-container p {
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+      color: #555;
+      max-width: 600px;
+      transition: opacity 0.3s ease;
+    }
+
+    .feature-images {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      transition: opacity 0.3s ease;
+    }
+
+    .feature-box {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+      opacity: 0.95;
+      transition: transform 0.3s ease;
+    }
+
+    .feature-box:hover {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+
+  <section id="features">
+    <div class="feature-container">
+      <h2 id="feature-heading">Real-World Projects</h2>
+      <p id="feature-subtext">Work on industry-relevant tasks to build hands-on experience.</p>
+      <div class="feature-images" id="feature-images">
+        <!-- Images injected by JS -->
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const features = [
+      {
+        heading: "Real-World Projects",
+        subtext: "Work on industry-relevant tasks to build hands-on experience.",
+        images: ["https://via.placeholder.com/100?text=Proj1", "https://via.placeholder.com/100?text=Proj2", "https://via.placeholder.com/100?text=Proj3"]
+      },
+      {
+        heading: "Cybersecurity Focus",
+        subtext: "Understand modern threats and how to defend digital systems.",
+        images: ["https://via.placeholder.com/100?text=Cyber1", "https://via.placeholder.com/100?text=Cyber2", "https://via.placeholder.com/100?text=Cyber3"]
+      },
+      {
+        heading: "AI-Powered Learning",
+        subtext: "Explore machine learning with practical, guided experiences.",
+        images: ["https://via.placeholder.com/100?text=AI1", "https://via.placeholder.com/100?text=AI2", "https://via.placeholder.com/100?text=AI3"]
+      },
+      {
+        heading: "Mentorship & Guidance",
+        subtext: "Learn from industry experts through structured sessions.",
+        images: ["https://via.placeholder.com/100?text=Mentor1", "https://via.placeholder.com/100?text=Mentor2", "https://via.placeholder.com/100?text=Mentor3"]
+      },
+      {
+        heading: "Certifications that Matter",
+        subtext: "Earn verified credentials to showcase your skills.",
+        images: ["https://via.placeholder.com/100?text=Cert1", "https://via.placeholder.com/100?text=Cert2", "https://via.placeholder.com/100?text=Cert3"]
+      },
+      {
+        heading: "Community & Collaboration",
+        subtext: "Be part of a thriving, supportive tech community.",
+        images: ["https://via.placeholder.com/100?text=Comm1", "https://via.placeholder.com/100?text=Comm2", "https://via.placeholder.com/100?text=Comm3"]
+      }
+    ];
+
+    let currentFeature = 0;
+
+    function updateFeature(index) {
+      const heading = document.getElementById("feature-heading");
+      const subtext = document.getElementById("feature-subtext");
+      const imageContainer = document.getElementById("feature-images");
+
+      heading.textContent = features[index].heading;
+      subtext.textContent = features[index].subtext;
+
+      imageContainer.innerHTML = "";
+      features[index].images.forEach(src => {
+        const img = document.createElement("img");
+        img.src = src;
+        img.className = "feature-box";
+        imageContainer.appendChild(img);
+      });
+    }
+
+    window.addEventListener("scroll", () => {
+      const totalHeight = document.body.scrollHeight - window.innerHeight;
+      const scrollY = window.scrollY;
+      const scrollProgress = scrollY / totalHeight;
+      const index = Math.floor(scrollProgress * features.length);
+      const clampedIndex = Math.max(0, Math.min(index, features.length - 1));
+
+      if (clampedIndex !== currentFeature) {
+        currentFeature = clampedIndex;
+        updateFeature(currentFeature);
+      }
+    });
+
+    // Initial render
+    updateFeature(0);
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programs</title>
+    <link rel="stylesheet" href="CSS/navbar.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: black;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            color: white; /* Default text color for body */
+            /* Removed body filter transition - filters will now apply directly to elements */
+        }
+
+        /* Styles for the main section content */
+        main {
+            padding: 20px;
+            /* Removed main filter transition - filters will now apply directly to elements */
+        }
+
+        /* Rule to blur/dim ONLY the boxes that are NOT hovered when the body has 'dim-active' */
+        body.dim-active .box:not(.hovered) {
+            filter: blur(2px) brightness(0.7); /* Blurs and dims non-hovered boxes */
+            pointer-events: none; /* Disable interactions on blurred boxes */
+        }
+        /* No specific override for the hovered box's filter needed here, as it's not being blurred by its parent */
+
+
+        .program-header-container {
+            display: flex;
+            justify-content: space-between; /* Pushes the search bar to the right */
+            align-items: flex-start; /* Aligns items to the top of the container */
+            margin-bottom: 20px; /* Space below this header section */
+            margin-left: 30px; /* Aligns with the previous h1 margin */
+            margin-right: 30px; /* Add some right margin */
+            transition: filter 0.3s ease; /* Transition for header content blurring */
+        }
+
+        /* Blur/dim header content when a box is hovered */
+        body.dim-active .program-header-container {
+            filter: blur(2px) brightness(0.7);
+            pointer-events: none; /* Disable interactions on blurred header */
+        }
+
+
+        .program-text-content {
+            /* This div contains h1 and h2 */
+            flex-shrink: 0; /* Prevents it from shrinking */
+        }
+
+        main h1 {
+            color: #91BBFA;
+            font-family: "Inter", sans-serif;
+            font-weight: 700;
+            font-size: 55px;
+            margin: 0; /* Reset default h1 margin */
+            padding: 0;
+        }
+
+        main h2 {
+            color: white;
+            font-family: "Source Code Pro", monospace;
+            font-size: 25px;
+            font-weight: 400;
+            margin-top: 10px; /* Adjusted to bring closer to h1 */
+            margin-bottom: 0;
+            padding: 0;
+        }
+
+        /* Search Bar Styling */
+        .search-bar-container {
+            position: relative;
+            border: 1px solid #84E7DC;
+            display: flex;
+            align-items: center;
+            border-radius: 25px;
+            padding: 8px 25px;
+            background-color: #222;
+            box-shadow: inset 0 0 5px rgba(0,0,0,0.5);
+            max-width: 300px; /* Limit width */
+            width: 100%; /* Make it responsive */
+            margin-top: 20px; /* Align with the h1 roughly */
+            transition: filter 0.3s ease; /* Transition for search bar blurring */
+        }
+
+        /* Blur/dim search bar when a box is hovered */
+        body.dim-active .search-bar-container {
+            filter: blur(2px) brightness(0.7);
+            pointer-events: none; /* Disable interactions on blurred search bar */
+        }
+
+        /* Adjust margin-top for smaller screens if needed to align better */
+        @media (max-width: 768px) {
+            .program-header-container {
+                flex-direction: column; /* Stack items vertically on small screens */
+                align-items: flex-start;
+                margin-left: 20px;
+                margin-right: 20px;
+            }
+            .search-bar-container {
+                width: calc(100% - 40px); /* Adjust width for padding */
+                margin-left: 0;
+                margin-top: 20px;
+            }
+            main h1, main h2 {
+                margin-left: 0; /* Remove specific margin for small screens if container handles it */
+            }
+        }
+
+        .search-input {
+            border:none;
+            background: none;
+            outline: none;
+            height:40px;
+            color: white;
+            flex-grow: 1; /* Allows input to take up available space */
+            padding-right: 10px; /* Space for the icon */
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+        }
+
+        .search-input::placeholder {
+            color: #bbb;
+            font-style: italic;
+        }
+
+        .search-icon {
+            width: 20px;
+            height: 20px;
+            filter: invert(100%) brightness(1.5); /* Make icon white/light */
+        }
+
+        /* Course Box Styling */
+        .row {
+            display: flex;
+            flex-wrap: wrap; /* Allow boxes to wrap to the next line */
+            justify-content: space-around; /* Distribute items evenly with space around them */
+            gap: 20px; /* Space between boxes */
+            margin-bottom: 40px; /* Space between rows */
+            padding: 0 30px; /* Align with main content margins */
+        }
+
+        .box {
+            background-color: transparent; /* No background */
+            border: 1px solid #91BBFA; /* Blue border */
+            border-radius: 12px;
+            width: calc(33.333% - 20px); /* Approximately 3 boxes per row, accounting for gap */
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* Distribute content vertically */
+            min-height: 350px; /* Ensure a consistent minimum height */
+            box-sizing: border-box; /* Include padding and border in the width */
+            position: relative; /* Needed for z-index and hover effects */
+            /* Combined transition for multiple properties */
+            transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease-in-out;
+            z-index: 1; /* Default z-index */
+        }
+
+        /* Hover effects for the box */
+        .box.hovered {
+            transform: translateY(-10px) scale(1.05); /* Lift up and slightly enlarge */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); /* Stronger shadow */
+            z-index: 10; /* Bring to front */
+            /* No filter applied here as it's handled by :not(.hovered) rule */
+        }
+
+        @media (max-width: 1024px) { /* Adjust for smaller desktops/tablets */
+            .box {
+                width: calc(50% - 20px); /* 2 boxes per row */
+            }
+        }
+
+        @media (max-width: 768px) { /* Adjust for tablets/mobile */
+            .box {
+                width: 100%; /* 1 box per row */
+            }
+            .row {
+                padding: 0 20px; /* Adjust padding for smaller screens */
+            }
+        }
+
+        .box-image {
+            width: 100%;
+            height: 150px; /* Fixed height for images */
+            object-fit: cover;
+            border-radius: 8px; /* Slightly rounded image corners */
+            margin-bottom: 15px;
+        }
+
+        .box-title {
+            font-family: "Inter", sans-serif;
+            font-weight: 700;
+            font-size: 24px;
+            color: white; /* Title color */
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .course-duration {
+            font-family: "Inter", sans-serif;
+            font-size: 14px;
+            color: #84E7DC; /* A distinct color for duration */
+            margin-bottom: 10px;
+        }
+
+        .box-description {
+            font-family: "Inter", sans-serif;
+            font-size: 16px;
+            color: #ccc; /* Description color */
+            margin-bottom: 15px;
+            flex-grow: 1; /* Allows description to take up available space */
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .star-icon {
+            width: 18px;
+            height: 18px;
+            fill: gold; /* Filled star color */
+            stroke: gold; /* Stroke for outlined stars (if used) */
+            margin-right: 4px;
+        }
+        .star-icon.empty {
+            fill: none; /* For empty stars */
+            stroke: #bbb; /* Outline for empty stars */
+        }
+
+        .course-link {
+            display: flex;
+            justify-content: flex-end; /* Push arrow to the right */
+            align-items: center;
+            text-decoration: none;
+            color: white; /* Link color */
+        }
+
+        .arrow-icon {
+            width: 24px;
+            height: 24px;
+            fill: #91BBFA; /* Arrow color */
+            transform: rotate(-45deg); /* Tilted arrow */
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .course-link:hover .arrow-icon {
+            transform: rotate(-45deg) scale(1.1); /* Slight animation on hover */
+        }
+        .row {
+            margin-top: 50px;
+            margin-bottom: 50px;
+        }
+
+        /* New: Responsive adjustments for smaller screens (e.g., mobile) */
+        @media (max-width: 480px) {
+            main {
+                padding: 10px; /* Reduce main padding on very small screens */
+            }
+            .program-header-container {
+                margin-left: 15px; /* Adjust header container margin */
+                margin-right: 15px;
+            }
+            main h1 {
+                font-size: 38px; /* Smaller font for h1 on small mobiles */
+            }
+            main h2 {
+                font-size: 20px; /* Smaller font for h2 on small mobiles */
+            }
+            .search-bar-container {
+                padding: 6px 15px; /* Adjust search bar padding */
+            }
+            .search-input {
+                height: 35px; /* Adjust search input height */
+                font-size: 16px; /* Adjust search input font size */
+            }
+            .row {
+                padding: 0 15px; /* Adjust row padding */
+                gap: 15px; /* Slightly smaller gap between boxes */
+            }
+            .box {
+                min-height: 300px; /* Adjust min-height for smaller boxes */
+                padding: 15px; /* Smaller padding inside boxes */
+            }
+            .box-title {
+                font-size: 20px; /* Smaller title font */
+            }
+            .box-description {
+                font-size: 14px; /* Smaller description font */
+            }
+            .course-duration {
+                font-size: 13px; /* Smaller duration font */
+            }
+            .star-icon, .arrow-icon {
+                width: 16px; /* Smaller icons */
+                height: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="navbar-brand">
+            <img src="IMG/logo2bnav.svg" alt="Inlighn Tech Logo" class="navbar-logo">
+        </a>
+        <ul class="navbar-nav">
+            <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+            <li class="nav-item"><a href="program.html" class="nav-link" id="current">Programs</a></li>
+            <li class="nav-item"><a href="verify.html" class="nav-link">Verify Certificate</a></li>
+            <li class="nav-item"><a href="about.html" class="nav-link">About Us</a></li>
+        </ul>
+        <div class="navbar-actions">
+            <a href="login.html" class="btn btn-dashboard">View Dashboard</a>
+        </div>
+        <div class="hamburger-menu">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+    </nav>
+
+    <div class="mobile-nav-overlay" style="display:none;">
+        <div class="close-btn">&times;</div>
+        <ul class="mobile-nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="program.html">Programs</a></li>
+            <li><a href="verify.html">Verify Certificate</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="login.html" class="btn btn-dashboard-mobile">Dashboard</a></li>
+        </ul>
+    </div>
+
+    <main>
+        <div class="program-header-container">
+            <div class="program-text-content">
+                <h1>Our Programs</h1>
+                <h2>Currently Showing 30 out of 100 listings.</h2>
+            </div>
+            <div class="search-bar-container">
+                <input type="text" placeholder="Search Programs" class="search-input">
+                <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Course Rows Section -->
+        <div class="row">
+            <div class="box">
+                <img src="IMG/wd.jpg" alt="Course 1" class="box-image">
+                <h3 class="box-title">Web Development Masterclass</h3>
+                <p class="course-duration">Duration: 12 weeks</p>
+                <p class="box-description">Learn front-end and back-end web development to build dynamic websites and applications.</p>
+                <div class="rating">
+                    <svg class="star-icon" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path></svg>
+                    <svg class="star-icon" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path></svg>
+                    <svg class="star-icon" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path></svg>
+                    <svg class="star-icon" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path></svg>
+                    <svg class="star-icon empty" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path></svg>
+                </div>
+                <a href="#" class="course-link">
+                    <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+                    </svg>
+                </a>
+            </div>
+            <div class="box">
+                <img src="IMG/da.jpg" alt="Course 2" class="box-image">
+                <h3 class="box-title">Data Science Fundamentals</h3>
+                <p class="course-duration">Duration: 10 weeks</p>
+                <p class="box-description">Explore data analysis, machine learning concepts, and predictive modeling using Python.</p>
+                <div class="rating">
+                    <svg class="star-icon" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path></svg>
+                    <svg class="star-icon" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path></svg>
+                    <svg class="star-icon" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path></svg>
+                    <svg class="star-icon empty" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path></svg>
+                    <svg class="star-icon empty" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path></svg>
+                </div>
+                <a href="#" class="course-link">
+                    <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+                    </svg>
+                </a>
+            </div>
+            <div class="box">
+                <img src="IMG/cs.jpg" alt="Course 3" class="box-image">
+                <h3 class="box-title">Cybersecurity Essentials</h3>
+                <p class="course-duration">Duration: 8 weeks</p>
+                <p class="box-description">An introduction to cybersecurity principles, network security, and ethical hacking.</p>
+                <div class="rating">
+                    <svg class="star-icon" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path></svg>
+                    <svg class="star-icon" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path></svg>
+                    <svg class="star-icon" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path></svg>
+                    <svg class="star-icon" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path></svg>
+                    <svg class="star-icon empty" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path></svg>
+                </div>
+                <a href="#" class="course-link">
+                    <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+        <!-- You can duplicate the 'row' div to create more rows of courses -->
+        <div class="row">
+            <div class="box">
+                <img src="IMG/ma.jpg" alt="Course 4" class="box-image">
+                <h3 class="box-title">Mobile App Development (React Native)</h3>
+                <p class="course-duration">Duration: 14 weeks</p>
+                <p class="box-description">Build cross-platform mobile applications for iOS and Android using React Native.</p>
+                <div class="rating">
+                    <svg class="star-icon" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path></svg>
+                    <svg class="star-icon" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path></svg>
+                    <svg class="star-icon" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path></svg>
+                    <svg class="star-icon" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path></svg>
+                    <svg class="star-icon empty" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path></svg>
+                </div>
+                <a href="#" class="course-link">
+                    <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+                    </svg>
+                </a>
+            </div>
+            <div class="box">
+                <img src="IMG/cl.jpg" alt="Course 5" class="box-image">
+                <h3 class="box-title">Cloud Computing with AWS</h3>
+                <p class="course-duration">Duration: 16 weeks</p>
+                <p class="box-description">Master cloud services and infrastructure deployment on Amazon Web Services (AWS).</p>
+                <div class="rating">
+                    <svg class="star-icon" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path></svg>
+                    <svg class="star-icon" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path></svg>
+                    <svg class="star-icon" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path></svg>
+                    <svg class="star-icon empty" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path></svg>
+                    <svg class="star-icon empty" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path></svg>
+                </div>
+                <a href="#" class="course-link">
+                    <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+                    </svg>
+                </a>
+            </div>
+            <div class="box">
+                <img src="IMG/ai.png" alt="Course 6" class="box-image">
+                <h3 class="box-title">Artificial Intelligence & ML</h3>
+                <p class="course-duration">Duration: 18 weeks</p>
+                <p class="box-description">Dive into the world of AI, machine learning algorithms, and neural networks.</p>
+                <div class="rating">
+                    <svg class="star-icon" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path></svg>
+                    <svg class="star-icon" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path></svg>
+                    <svg class="star-icon" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path></svg>
+                    <svg class="star-icon" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path></svg>
+                    <svg class="star-icon" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path></svg>
+                </div>
+                <a href="#" class="course-link">
+                    <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </main>
+    <script src="JS/navbar.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const boxes = document.querySelectorAll('.box');
+            const programHeaderContainer = document.querySelector('.program-header-container');
+            const searchBarContainer = document.querySelector('.search-bar-container');
+            const body = document.body;
+
+            boxes.forEach(box => {
+                box.addEventListener('mouseenter', () => {
+                    // Add 'hovered' class to the current box
+                    box.classList.add('hovered');
+                    // Add 'dim-active' class to the body to trigger dimming/blurring of non-hovered content
+                    body.classList.add('dim-active');
+
+                    // Blur/dim the header and search bar directly
+                    if (programHeaderContainer) {
+                        programHeaderContainer.style.filter = 'blur(2px) brightness(0.7)';
+                        programHeaderContainer.style.pointerEvents = 'none';
+                    }
+                    if (searchBarContainer) {
+                        searchBarContainer.style.filter = 'blur(2px) brightness(0.7)';
+                        searchBarContainer.style.pointerEvents = 'none';
+                    }
+                });
+
+                box.addEventListener('mouseleave', () => {
+                    // Remove 'hovered' class from the current box
+                    box.classList.remove('hovered');
+                    // Remove 'dim-active' class from the body
+                    body.classList.remove('dim-active');
+
+                    // Remove blur/dim from the header and search bar
+                    if (programHeaderContainer) {
+                        programHeaderContainer.style.filter = 'none';
+                        programHeaderContainer.style.pointerEvents = 'auto';
+                    }
+                    if (searchBarContainer) {
+                        searchBarContainer.style.filter = 'none';
+                        searchBarContainer.style.pointerEvents = 'auto';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

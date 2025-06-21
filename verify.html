@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Certificate</title>
+    <link rel="stylesheet" href="CSS/navbar.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: black;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            color: white; /* Default text color for body */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Ensure body takes at least full viewport height */
+        }
+
+        main {
+            flex-grow: 1; /* Allows main content to take available space */
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center content horizontally */
+            justify-content: center; /* Center content vertically */
+            text-align: center; /* Center text within content */
+            max-width: 800px; /* Limit content width for better readability */
+            margin: 0 auto; /* Center the main content block */
+        }
+
+        .program-text-content {
+            margin-bottom: 40px; /* Space below the heading and description */
+        }
+
+        main h1 {
+            color: #91BBFA;
+            font-family: "Inter", sans-serif;
+            font-weight: 700;
+            font-size: 55px;
+            margin: 0;
+            padding: 0;
+            line-height: 1.2;
+        }
+
+        main h2 {
+            color: white;
+            font-family: "Inter", monospace;
+            font-size: 18px;
+            font-weight: 400;
+            margin-top: 10px;
+            margin-bottom: 0;
+            padding: 0;
+            line-height: 1.5;
+        }
+
+        /* Verification Form Styling */
+        .verification-form-container {
+            display: flex;
+            flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+            gap: 15px; /* Space between input and button */
+            width: 100%;
+            max-width: 500px; /* Limit the width of the form elements */
+            margin-top: 20px; /* Space below the text content */
+            justify-content: center; /* Center items when they wrap */
+            align-items: center;
+        }
+
+        .verify-input {
+            flex-grow: 1; /* Allows input to take up available space */
+            padding: 15px 20px;
+            background-color: rgba(255, 255, 255, 0.1); /* Transparent background */
+            border: 1px solid #84E7DC; /* Green/blue border */
+            border-radius: 12px;
+            color: white;
+            font-size: 18px;
+            outline: none;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            box-sizing: border-box; /* Include padding and border in width */
+            min-width: 200px; /* Ensure input is not too small */
+        }
+
+        .verify-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .verify-input:focus {
+            border-color: #91BBFA; /* Change border color on focus */
+            box-shadow: 0 0 0 3px rgba(145, 187, 250, 0.3); /* Add subtle shadow on focus */
+        }
+
+        .verify-button {
+            padding: 15px 30px;
+            background-color: #84E7DC; /* Green/blue background */
+            color: black; /* Text color */
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            white-space: nowrap; /* Prevent button text from wrapping */
+        }
+
+        .verify-button:hover {
+            background-color: #6fa4f4; /* Darker green/blue on hover */
+            transform: translateY(-2px); /* Lift effect on hover */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Shadow on hover */
+        }
+
+        .verify-button:active {
+            transform: translateY(0); /* Reset on click */
+            box-shadow: none;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            main h1 {
+                font-size: 45px;
+            }
+            main h2 {
+                font-size: 20px;
+            }
+            .verification-form-container {
+                flex-direction: column; /* Stack input and button vertically */
+                align-items: stretch; /* Stretch items to full width */
+                max-width: 350px; /* Adjust max width for smaller screens */
+            }
+            .verify-input, .verify-button {
+                width: 100%; /* Full width when stacked */
+                margin-left: 0; /* Remove specific margins */
+                margin-right: 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            main h1 {
+                font-size: 35px;
+            }
+            main h2 {
+                font-size: 18px;
+            }
+            .verify-input, .verify-button {
+                padding: 12px 15px;
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="navbar-brand">
+            <img src="IMG/logo2bnav.svg" alt="Inlighn Tech Logo" class="navbar-logo">
+        </a>
+        <ul class="navbar-nav">
+            <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+            <li class="nav-item"><a href="program.html" class="nav-link">Programs</a></li>
+            <li class="nav-item"><a href="verify.html" class="nav-link" id="current">Verify Certificate</a></li>
+            <li class="nav-item"><a href="about.html" class="nav-link">About Us</a></li>
+        </ul>
+        <div class="navbar-actions">
+            <a href="login.html" class="btn btn-dashboard">View Dashboard</a>
+        </div>
+        <div class="hamburger-menu">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+    </nav>
+
+    <div class="mobile-nav-overlay" style="display:none;">
+        <div class="close-btn">&times;</div>
+        <ul class="mobile-nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="program.html">Programs</a></li>
+            <li><a href="verify.html">Verify Certificate</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="login.html" class="btn btn-dashboard-mobile">Dashboard</a></li>
+        </ul>
+    </div>
+
+    <main>
+        <div class="program-text-content">
+            <h1>Verify Your Certificate</h1>
+            <h2>Enter your Intern ID (e.g., ITID000) in the field above to verify your internship certificate.<br>You can find your Intern ID on your offer letter or experience letter.</h2>
+        </div>
+
+        <div class="verification-form-container">
+            <input type="text" placeholder="Enter Intern ID" class="verify-input">
+            <button class="verify-button">Verify</button>
+        </div>
+    </main>
+    <!-- Placeholder for navbar.js, assuming it's in JS/navbar.js -->
+    <script src="JS/navbar.js"></script>
+</body>
+</html>

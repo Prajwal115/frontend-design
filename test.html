@@ -1,0 +1,190 @@
+<!-- HTML Structure for Scroll-Based 3D Feature Reveal with Multiple Shapes -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D Feature Scroll</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body, html {
+      font-family: 'Inter', sans-serif;
+      background-color: #f5f5f5;
+    }
+
+    .feature-section {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 100vh;
+      padding: 100px;
+      position: relative;
+    }
+
+    .feature-text {
+      flex: 1;
+      position: sticky;
+      top: 100px;
+      padding-right: 40px;
+    }
+
+    .feature-text h2 {
+      font-size: 2.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .feature-text p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #444;
+    }
+
+    .feature-model {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 400px;
+    }
+
+    canvas {
+      width: 300px !important;
+      height: 300px !important;
+    }
+
+    .feature-block {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 100px;
+    }
+  </style>
+</head>
+<body>
+  <script src="https://unpkg.com/three@0.150.1/build/three.min.js"></script>
+
+  <div class="feature-text">
+    <h2 id="feature-heading">Attention to Detail</h2>
+    <p id="feature-desc">
+      Every curve, every pixel — perfected. Just like a sphere, our platform is built with no rough edges. Clean design, smooth performance, and seamless transitions.
+    </p>
+  </div>
+
+  <div class="feature-block" style="background:#EDEDED">
+    <div class="feature-text"></div>
+    <div class="feature-model">
+      <div id="model-0"></div>
+    </div>
+  </div>
+  <div class="feature-block" style="background:#FFE5B4">
+    <div class="feature-text"></div>
+    <div class="feature-model">
+      <div id="model-1"></div>
+    </div>
+  </div>
+  <div class="feature-block" style="background:#D1EAF0">
+    <div class="feature-text"></div>
+    <div class="feature-model">
+      <div id="model-2"></div>
+    </div>
+  </div>
+  <div class="feature-block" style="background:#DAD4F2">
+    <div class="feature-text"></div>
+    <div class="feature-model">
+      <div id="model-3"></div>
+    </div>
+  </div>
+
+  <script>
+    const headings = [
+      "Attention to Detail",
+      "Structural Integrity",
+      "Precision in Motion",
+      "Dimensional Thinking"
+    ];
+
+    const descriptions = [
+      "Every curve, every pixel — perfected. Just like a sphere, our platform is built with no rough edges. Clean design, smooth performance, and seamless transitions.",
+      "Built like a cube: solid, dependable, and scalable. Whether you're navigating programs or verifying certificates, every interaction rests on a strong, logical foundation.",
+      "Like a cone slicing through space, our system delivers focus. Quick actions, guided flow, and effortless navigation — with every feature pointing exactly where it should.",
+      "We don’t just think in lines — we think in dimensions. Our systems connect design, user behavior, and feedback into one continuous, interactive experience."
+    ];
+
+    const headingEl = document.getElementById('feature-heading');
+    const descEl = document.getElementById('feature-desc');
+
+    const models = [];
+
+    function createFeatureModel(id, shapes = []) {
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
+      const renderer = new THREE.WebGLRenderer({ alpha: true });
+      renderer.setSize(300, 300);
+      document.getElementById(id).appendChild(renderer.domElement);
+
+      const light = new THREE.DirectionalLight(0xffffff, 1);
+      light.position.set(1, 1, 1);
+      scene.add(light);
+
+      const group = new THREE.Group();
+
+      shapes.forEach(shape => group.add(shape));
+      scene.add(group);
+
+      camera.position.z = 4;
+
+      function animate() {
+        requestAnimationFrame(animate);
+        group.rotation.x += 0.01;
+        group.rotation.y += 0.01;
+        renderer.render(scene, camera);
+      }
+      animate();
+
+      models.push({ canvas: renderer.domElement });
+    }
+
+    // Section 0 - Sphere + Torus + Cube
+    const mat1 = new THREE.MeshStandardMaterial({ color: 0xff66cc, transparent: true, opacity: 0.5 });
+    const mat2 = new THREE.MeshStandardMaterial({ color: 0x66ccff, wireframe: true });
+    const mat3 = new THREE.MeshStandardMaterial({ color: 0x33cc99, transparent: true, opacity: 0.6 });
+    const sphere = new THREE.Mesh(new THREE.SphereGeometry(0.6, 32, 32), mat1);
+    const torus = new THREE.Mesh(new THREE.TorusGeometry(0.6, 0.2, 16, 100), mat2);
+    const cube = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.8, 0.8), mat3);
+    sphere.position.x = -1;
+    torus.position.x = 1;
+    cube.position.y = -1;
+    createFeatureModel('model-0', [sphere, torus, cube]);
+
+    // Section 1 - Cube only
+    const cube2 = new THREE.Mesh(new THREE.BoxGeometry(1.2, 1.2, 1.2), new THREE.MeshStandardMaterial({ color: 0x4b0082 }));
+    createFeatureModel('model-1', [cube2]);
+
+    // Section 2 - Cone
+    const cone = new THREE.Mesh(new THREE.ConeGeometry(1, 2, 32), new THREE.MeshStandardMaterial({ color: 0x008080 }));
+    createFeatureModel('model-2', [cone]);
+
+    // Section 3 - Torus
+    const torus2 = new THREE.Mesh(new THREE.TorusGeometry(1, 0.3, 16, 100), new THREE.MeshStandardMaterial({ color: 0xff6347 }));
+    createFeatureModel('model-3', [torus2]);
+
+    window.addEventListener('scroll', () => {
+      models.forEach((model, i) => {
+        const rect = model.canvas.getBoundingClientRect();
+        const inView = rect.top < window.innerHeight / 2 && rect.bottom > window.innerHeight / 2;
+        if (inView) {
+          headingEl.textContent = headings[i];
+          descEl.textContent = descriptions[i];
+        }
+      });
+    });
+  </script>
+</body>
+</html>

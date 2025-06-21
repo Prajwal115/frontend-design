@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="CSS/index.css">
+    <link rel="stylesheet" href="CSS/navbar.css">
+    <style>
+        /* General Body and Main container styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: black;
+            color: white;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden; /* Prevent horizontal scroll from layout shifts */
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        /* First section - Hero (left: text, right: 3D model) */
+        .first {
+            display: flex;
+            flex-wrap: wrap; /* Allows wrapping on smaller screens */
+            align-items: center;
+            height: auto; /* Adjusted for responsive content */
+            padding-bottom: 50px;
+        }
+
+        .left {
+            flex: 1 1 50%; /* Takes 50% width, can shrink/grow */
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .right {
+            flex: 1 1 40%; /* Takes 40% width, can shrink/grow */
+            min-height: 300px; /* Ensure some height for the model viewer */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        /* Typewriter effect styles */
+        #typewriter {
+            margin-top: 20px;
+            overflow: hidden;
+            white-space: nowrap;
+            margin: 0 auto;
+            letter-spacing: 0.15em;
+            animation: typing 5s steps(35, end) forwards, blink-caret 0.75s step-end 6 forwards;
+            animation-delay: 3s;
+            width: 0;
+            border-right: .15em solid orange;
+            font-size: 50px; /* Ensure font size is set */
+            font-weight: bold;
+            color: white;
+        }
+
+        #headline {
+            color: white;
+            font-size: 25px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        #des {
+            color: #ccc;
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        #getstart {
+            width: 190px;
+            height: 50px;
+            cursor: pointer;
+            color: white;
+            background-color: black;
+            border: 1px solid #84E7DC;
+            border-radius: 13px;
+            font-size: 17px;
+            font-weight: 600;
+            transition: 0.7s ease;
+        }
+
+        #getstart:hover {
+            background-color: #84E7DC;
+            color: black;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: orange; }
+        }
+
+        /* Second section - Stat boxes */
+        .second {
+            margin-top: 60px; /* Reduced margin to bring closer to first section */
+            background: #0f0f0f;
+            height: auto;
+            padding: 40px 20px; /* Adjusted padding */
+            display: flex;
+            flex-wrap: wrap; /* Allow boxes to wrap */
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        .second .box {
+            width: calc(25% - 20px); /* 4 boxes per row - adjust for gap */
+            min-width: 200px; /* Minimum width for responsiveness */
+            height: 200px;
+            background-color: transparent;
+            border: 1px solid #91bbfa4d;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 15px;
+            box-sizing: border-box;
+        }
+
+        .second .box h3 {
+            color: #91BBFA;
+            font-size: 45px; /* Adjusted font size */
+            margin: 0;
+        }
+
+        .second .box p {
+            color: white;
+            font-size: 16px;
+            margin-top: 10px; /* Adjusted margin */
+            margin-bottom: 0;
+        }
+
+        /* Third section - Why Inlighn Tech grid (formerly slider) */
+        .third {
+            margin-top: 60px;
+            background-color: #0f0f0f;
+            height: auto;
+            width: 100%;
+            padding: 50px 0;
+            display: block;
+            text-align: center; /* Center heading */
+        }
+
+        .why-heading {
+            color: white;
+            font-size: 30px;
+            margin-bottom: 30px;
+        }
+
+        .grid-container { /* Renamed from slider-container */
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive grid columns */
+            gap: 30px; /* Gap between grid items */
+            margin: 50px auto;
+            max-width: 1200px;
+            padding: 0 20px; /* Responsive padding */
+            box-sizing: border-box;
+        }
+
+        .grid-tile { /* Renamed from slider-tile */
+            background-color: #1e1e1e;
+            border: 1px solid #91bbfa4d;
+            border-radius: 15px;
+            overflow: hidden;
+            color: white;
+            padding-bottom: 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            text-align: center;
+        }
+
+        .tile-image-placeholder {
+            width: 100%;
+            height: 200px;
+            background-color: #5ab1a3;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .tile-image-placeholder .material-icons {
+            font-size: 80px;
+            color: black;
+        }
+
+        .tile-content {
+            padding: 0 20px;
+            text-align: center;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        .tile-content h3 {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        .tile-content p {
+            font-size: 16px;
+            line-height: 1.5;
+            color: #ccc;
+        }
+
+        /* Removed slider-prev and slider-next styles as they are no longer used */
+
+        /* Fourth section - Features with 3D models */
+        .four {
+            background-color: #111;
+            padding: 60px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 60px;
+        }
+
+        .feature-block {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            flex-wrap: wrap; /* Allow wrapping */
+        }
+
+        .feature-block:nth-child(even) { /* Reverse order for even blocks */
+            flex-direction: row-reverse;
+        }
+
+        .feature-block .model {
+            flex: 1 1 40%; /* Adjusted flex basis for smaller model width */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-width: 250px; /* Minimum width to prevent collapse */
+        }
+
+        .feature-block .text {
+            flex: 1 1 50%;
+            color: white;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .feature-block .text h3 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            color: #91BBFA;
+            text-align: left; /* Default text alignment */
+            transform: translateX(0); /* Reset transform */
+        }
+
+        .feature-block .text p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #ccc;
+            text-align: left; /* Default text alignment */
+            width: 100%; /* Take full width of its parent */
+            transform: translateX(0); /* Reset transform */
+        }
+
+        /* Fifth section - About Us */
+        .five {
+            padding: 50px 20px; /* Adjusted padding */
+            color: white;
+            height: auto;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-start; /* Align items to top */
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        .five h2 {
+            font-size: 60px;
+            margin-left: 0;
+            color: white;
+            width: 100%; /* Takes full width */
+            margin-bottom: 20px;
+        }
+
+        .five .ll {
+            flex: 1 1 55%; /* Slightly larger for text */
+            padding-right: 20px;
+            box-sizing: border-box;
+        }
+
+        .five .rr {
+            flex: 1 1 40%; /* Image section */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .five p {
+            color: whitesmoke;
+            margin-left: 0; /* Reset margin */
+            width: 100%;
+            margin-top: 20px;
+            margin-bottom: 30px;
+            font-size: 23px;
+        }
+
+        .five #sty {
+            width: 100%;
+            height: auto;
+            max-height: 350px; /* Max height for image */
+            object-fit: cover;
+            border-radius: 12px; /* Add some border-radius to the image */
+            transform: translateY(0); /* Reset transform */
+        }
+
+        #about {
+            width: 190px;
+            height: 50px;
+            cursor: pointer;
+            color: white;
+            background-color: black;
+            border: 1px solid #84E7DC;
+            border-radius: 13px;
+            font-size: 17px;
+            margin-left: 0; /* Reset margin */
+            font-weight: 600;
+            transition: 0.7s ease;
+        }
+
+        #about:hover {
+            background-color: #84E7DC;
+            color: black;
+        }
+
+        /* Six section - Testimonials */
+        .six {
+            padding: 80px 20px;
+            background-color: #0f0f0f;
+            text-align: center;
+        }
+
+        .testimonials-heading {
+            font-size: 45px;
+            font-weight: 700;
+            color: #91BBFA;
+            margin-bottom: 50px;
+        }
+
+        .testimonials-slider-container {
+            position: relative;
+            width: 100%; /* Changed to 100% width */
+            overflow: hidden;
+            /* max-width: 900px; Removed max-width */
+            margin: 0 auto;
+            padding: 0 60px; /* Padding for arrow buttons */
+            box-sizing: border-box;
+        }
+
+        .testimonials-wrapper {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .testimonial-slide {
+            min-width: 100%; /* Show one testimonial at a time by default */
+            flex-shrink: 0;
+            padding: 30px 60px; /* Increased horizontal padding to make content less wide */
+            margin: 0 10px; /* Space between slides if multiple are visible */
+            border: 1px solid white;
+            border-radius: 12px;
+            background-color: transparent;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .testimonial-slide .quote-icon {
+            font-size: 40px;
+            color: #91BBFA; /* Blue color for quotes */
+            margin-bottom: 20px;
+        }
+
+        .testimonial-slide p.feedback {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            font-style: italic;
+            color: #ccc;
+            max-width: 700px; /* Limiting width for feedback text to force multi-line */
+            margin-left: auto; /* Center the text within its parent */
+            margin-right: auto; /* Center the text within its parent */
+        }
+
+        .testimonial-author-photo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 10px;
+            border: 2px solid #84E7DC; /* Greenish border for photo */
+        }
+
+        .testimonial-author-name {
+            font-size: 18px;
+            font-weight: bold;
+            color: #84E7DC; /* Green color for name */
+            margin: 0;
+        }
+
+        .testimonials-prev,
+        .testimonials-next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            z-index: 10;
+            font-size: 28px;
+            border-radius: 50%;
+            user-select: none;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .testimonials-prev { left: 0px; }
+        .testimonials-next { right: 0px; }
+
+        .testimonial-dots {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            gap: 10px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #555;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .dot.active {
+            background-color: white;
+        }
+
+        /* Footer Section */
+        .footer {
+            background-color: #0d0d0d;
+            padding: 50px 30px;
+            display: flex;
+            flex-wrap: wrap; /* Allow wrapping */
+            justify-content: space-between;
+            align-items: flex-start;
+            color: white;
+        }
+
+        .footer-left {
+            flex: 1 1 45%; /* Menu section on left */
+            min-width: 250px; /* Minimum width to prevent crushing */
+            margin-bottom: 30px; /* Space before stacking on small screens */
+        }
+
+        .footer-left h4 {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #91BBFA;
+        }
+
+        .footer-nav-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-nav-list li {
+            margin-bottom: 10px;
+        }
+
+        .footer-nav-list a {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-nav-list a:hover {
+            color: white;
+        }
+
+        .footer-right {
+            flex: 1 1 45%; /* Brand logo and copyright on right */
+            min-width: 250px; /* Minimum width */
+            text-align: right; /* Align content to the right */
+        }
+
+        .footer-logo-placeholder {
+            width: 300px; /* Size for your logo */
+            height: 100px;
+            background-color: black; /* Placeholder background */
+            display: inline-block; /* Allows text to align next to it */
+            margin-bottom: 15px;
+            line-height: 50px; /* Vertically center placeholder text */
+            text-align: center;
+            color: #bbb;
+            font-size: 14px;
+            border-radius: 5px;
+        }
+
+        .footer-right p {
+            font-size: 14px;
+            color: #ccc;
+            margin: 0;
+        }
+
+
+        /* Responsive Adjustments */
+        @media (max-width: 1024px) {
+            .first .left, .first .right {
+                flex-basis: 100%;
+                text-align: center;
+            }
+            .first .left h1, .first .left h2, .first .left p, .first .left button {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .feature-block:nth-child(even) { /* Reset order on smaller screens */
+                flex-direction: row;
+            }
+            .feature-block .text h3, .feature-block .text p {
+                text-align: center;
+            }
+            .five .ll, .five .rr {
+                flex-basis: 100%;
+                padding-right: 0;
+                margin-bottom: 30px;
+            }
+            .five h2 {
+                text-align: center;
+            }
+            .five p, #about {
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            #typewriter { font-size: 30px; }
+            #headline { font-size: 20px; }
+            #des { font-size: 16px; }
+
+            .second .box {
+                width: calc(50% - 20px); /* 2 boxes per row on tablets */
+            }
+
+            .grid-tile { /* For mobile, ensure tiles are still responsive */
+                min-width: unset; /* Reset min-width */
+                width: 100%; /* Take full width */
+                margin: 0; /* Remove margin, gap will handle spacing */
+            }
+            .grid-container { /* Adjust grid for mobile */
+                grid-template-columns: 1fr; /* Single column on mobile */
+                gap: 20px; /* Maintain gap */
+                padding: 0 20px; /* Adjust padding for small screens */
+            }
+
+
+            .slider-container, .testimonials-slider-container {
+                padding: 0 10px; /* Adjust padding for small screens */
+            }
+
+
+            .slider-prev, .slider-next, .testimonials-prev, .testimonials-next {
+                font-size: 20px;
+                width: 40px;
+                height: 40px;
+            }
+
+            .why-heading, .testimonials-heading {
+                font-size: 30px;
+            }
+
+            .testimonial-slide {
+                padding: 20px; /* Adjusted padding for smaller screens */
+            }
+
+            .footer-left, .footer-right {
+                flex-basis: 100%;
+                text-align: center;
+                margin-bottom: 20px;
+            }
+            .footer-nav-list {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+            .footer-nav-list li {
+                margin-bottom: 0;
+            }
+            .footer-right .footer-logo-placeholder {
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #typewriter { font-size: 20px; letter-spacing: 0.1em; }
+            #headline { font-size: 18px; }
+            #des { font-size: 14px; }
+
+            .second .box {
+                width: 100%; /* 1 box per row on very small screens */
+            }
+
+            .tile-content h3 { font-size: 24px; }
+            .tile-content p { font-size: 14px; }
+
+            .testimonials-heading { font-size: 24px; }
+            .testimonial-slide p.feedback { font-size: 16px; }
+            .testimonial-author-name { font-size: 16px; }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="loader-wrapper">
+        <div id="loader">
+            <img src="IMG/logo1.svg" alt="Inlighn Tech Logo" id="logo">
+            <div id="progress-bar-container">
+                <div id="progress-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="content" class="fade-in-content">
+        <nav class="navbar">
+            <a href="index.html" class="navbar-brand">
+                <img src="IMG/logo2bnav.svg" alt="Inlighn Tech Logo" class="navbar-logo">
+            </a>
+            <ul class="navbar-nav">
+                <li class="nav-item"><a href="index.html" class="nav-link" id="current">Home</a></li>
+                <li class="nav-item"><a href="program.html" class="nav-link">Programs</a></li>
+                <li class="nav-item"><a href="verify.html" class="nav-link">Verify Certificate</a></li>
+                <li class="nav-item"><a href="about.html" class="nav-link">About Us</a></li>
+            </ul>
+            <div class="navbar-actions">
+                <a href="login.html" class="btn btn-dashboard">View Dashboard</a>
+            </div>
+            <div class="hamburger-menu">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+        </nav>
+
+        <div class="mobile-nav-overlay" style="display:none;">
+            <div class="close-btn">&times;</div>
+            <ul class="mobile-nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="program.html">Programs</a></li>
+                <li><a href="verify.html">Verify Certificate</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="login.html" class="btn btn-dashboard-mobile">Dashboard</a></li>
+            </ul>
+        </div>
+
+        <main>
+            <div class="updates" id="updates">
+                <div class="slider-nav left-arrow"><span class="material-icons">chevron_left</span></div>
+                <div class="updates-slider-container">
+                    <div class="updates-slider">
+                        <div class="updates-item">
+                            <p><strong>What's New: </strong>Cyber Awareness Week | New Events <a href="#"><span
+                                        class="material-icons"
+                                        style="font-size: 20px; vertical-align: middle;">arrow_outward</span></a></p>
+                        </div>
+                        <div class="updates-item">
+                            <p><strong>Latest Update: </strong>Summer Internship Program Applications Now Open! <a
+                                    href="#"><span class="material-icons"
+                                        style="font-size: 20px; vertical-align: middle;">arrow_outward</span></a></p>
+                        </div>
+                        <div class="updates-item">
+                            <p><strong>Announcement: </strong>Upcoming Workshop on AI Ethics on July 15th <a
+                                    href="#"><span class="material-icons"
+                                        style="font-size: 20px; vertical-align: middle;">arrow_outward</span></a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="slider-nav right-arrow"><span class="material-icons">chevron_right</span></div>
+            </div>
+
+            <div class="first">
+                <div class="left">
+                    <h1 id="typewriter">Create.<br>Learn.<br>Thrive.</h1>
+                    <h2 id="headline">Where AI meets cybersecurity, and innovation takes form.</h2>
+                    <p id="des">Gain real-world experience with our immersive internship programs in Cyber Security,
+                        Full Stack Development, Data Science, Data Analyst and in various tech domains. Learn today,
+                        lead tomorrow.</p>
+                    <a href="courses.html">
+                        <button id="getstart">Explore Programs</button>
+                    </a>
+                </div>
+                <div class="right">
+                    <model-viewer src="MODEL/neural_networks_of_the_brain.glb" alt="Atom" auto-rotate
+                        style="width:120%;height:500px;"></model-viewer>
+                </div>
+            </div>
+
+            <div class="second">
+                <div class="box" id="box01">
+                    <h3>5000+</h3>
+                    <p>Interns Enrolled</p>
+                </div>
+                <div class="box" id="box02">
+                    <h3>9000+</h3>
+                    <p>Projects Completed</p>
+                </div>
+                <div class="box" id="box03">
+                    <h3>93%</h3>
+                    <p>Satisfaction Rate</p>
+                </div>
+                <div class="box" id="box04">
+                    <h3>30+</h3>
+                    <p>Top Instructors</p>
+                </div>
+            </div>
+
+            <div class="third">
+                <h4 id="why" class="why-heading">Why Inlighn Tech?</h4>
+                <div class="grid-container">
+                    <!-- Tile 1 -->
+                    <div class="grid-tile">
+                        <div class="tile-image-placeholder">
+                            <span class="material-icons">visibility</span>
+                        </div>
+                        <div class="tile-content">
+                            <h3>Expert Mentorship</h3>
+                            <p>Learn From Seasoned Professionals Who Guide You Through Every Step Of Your Journey.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- Tile 2 -->
+                    <div class="grid-tile">
+                        <div class="tile-image-placeholder">
+                            <span class="material-icons">code</span>
+                        </div>
+                        <div class="tile-content">
+                            <h3>Hands-on Projects</h3>
+                            <p>Apply Your Knowledge To Real-world Scenarios And Build A Robust Portfolio.</p>
+                        </div>
+                    </div>
+                    <!-- Tile 3 -->
+                    <div class="grid-tile">
+                        <div class="tile-image-placeholder">
+                            <span class="material-icons">group</span>
+                        </div>
+                        <div class="tile-content">
+                            <h3>Industry Connections</h3>
+                            <p>Network With Leaders And Peers In The Tech Industry For Future Opportunities.</p>
+                        </div>
+                    </div>
+                    <!-- Tile 4 -->
+                    <div class="grid-tile">
+                        <div class="tile-image-placeholder">
+                            <span class="material-icons">schedule</span>
+                        </div>
+                        <div class="tile-content">
+                            <h3>Flexible Learning</h3>
+                            <p>Access Programs Designed To Fit Your Schedule And Learning Style.</p>
+                        </div>
+                    </div>
+                    <!-- Tile 5 -->
+                    <div class="grid-tile">
+                        <div class="tile-image-placeholder">
+                            <span class="material-icons">trending_up</span>
+                        </div>
+                        <div class="tile-content">
+                            <h3>Career Growth</h3>
+                            <p>Gain Practical Skills That Are Directly Applicable To Today's Job Market.</p>
+                        </div>
+                    </div>
+                    <!-- Tile 6 -->
+                    <div class="grid-tile">
+                        <div class="tile-image-placeholder">
+                            <span class="material-icons">forum</span>
+                        </div>
+                        <div class="tile-content">
+                            <h3>Community Support</h3>
+                            <p>Join A Vibrant Community Of Learners And Mentors For Collaborative Growth.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Removed slider-prev and slider-next buttons -->
+            </div>
+
+            <div class="four">
+                <div class="feature-block">
+                    <div class="model">
+                        <model-viewer src="MODEL/beautiful_sphere.glb" alt="Globe Model" auto-rotate camera-controls
+                            style="width: 100%; height: 300px;"></model-viewer>
+                    </div>
+                    <div class="text">
+                        <h3>Attention to Detail</h3>
+                        <p>Every curve, every pixel — perfected. Just like a sphere, our platform is built with no rough
+                            edges. Clean design, smooth performance, and seamless transitions.</p>
+                    </div>
+                </div>
+
+                <div class="feature-block">
+                    <div class="model">
+                        <model-viewer src="MODEL/cube_transparent_artistic_reference.glb" alt="Brain Model" auto-rotate
+                            camera-controls style="width: 100%; height: 300px;"></model-viewer>
+                    </div>
+                    <div class="text">
+                        <h3>Structural Integrity</h3>
+                        <p>Built like a cube: solid, dependable, and scalable. Whether you're navigating programs or
+                            verifying certificates, every interaction rests on a strong, logical foundation.</p>
+                    </div>
+                </div>
+
+                <div class="feature-block">
+                    <div class="model">
+                        <model-viewer src="MODEL/traffic_cones.glb" alt="Security Lock Model" auto-rotate
+                            camera-controls style="width: 100%; height: 300px;"></model-viewer>
+                    </div>
+                    <div class="text">
+                        <h3>Precision in Motionn</h3>
+                        <p>Like a cone slicing through space, our system delivers focus. Quick actions, guided flow, and
+                            eff ortless navigation — with every feature pointing exactly where it should.</p>
+                    </div>
+                </div>
+
+                <div class="feature-block">
+                    <div class="model">
+                        <model-viewer src="MODEL/glazed_donut_simple_model.glb" alt="Data Chip Model" auto-rotate
+                            camera-controls style="width: 100%; height: 300px;"></model-viewer>
+                    </div>
+                    <div class="text">
+                        <h3>Dimensional Thinking</h3>
+                        <p>We do not just think in lines — we think in dimensions. Our systems connect design, user
+                            behavior, and feedback into one continuous, interactive experience.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="five">
+                <h2 id = "aboutus">About Us</h2>
+                <div class="ll">
+                    <p>At INLIGHN TECH, we believe that the future of education lies in bridging the gap between academic learning and industry needs. Founded with a passion for providing meaningful and immersive learning experiences, we offer internship programs that equip students and young professionals with practical skills in Cyber Security, Full Stack Development, Data Science, and Project Management.</p>
+                <button id="about">Learn More</button>
+                </div>
+                <div class="rr">
+                    <img src="IMG/stu.jpg" id="sty" alt="Students Learning">
+                </div>
+            </div>
+
+            <!-- Six section - Testimonials -->
+            <div class="six">
+                <h2 class="testimonials-heading">What Our Interns Say</h2>
+                <div class="testimonials-slider-container">
+                    <div class="testimonials-wrapper">
+                        <!-- Testimonial 1 -->
+                        <div class="testimonial-slide">
+                            <span class="material-icons quote-icon">format_quote</span>
+                            <p class="feedback">"The mentorship here is unparalleled. I learned so much more than I expected and built a portfolio I'm truly proud of!"</p>
+                            <img src="https://placehold.co/80x80/228B22/ffffff?text=P1" alt="Intern Photo 1" class="testimonial-author-photo">
+                            <p class="testimonial-author-name">Alice Johnson</p>
+                        </div>
+                        <!-- Testimonial 2 -->
+                        <div class="testimonial-slide">
+                            <span class="material-icons quote-icon">format_quote</span>
+                            <p class="feedback">"Hands-on projects made all the difference. I felt truly engaged and saw my skills grow exponentially."</p>
+                            <img src="https://placehold.co/80x80/228B22/ffffff?text=P2" alt="Intern Photo 2" class="testimonial-author-photo">
+                            <p class="testimonial-author-name">Bob Williams</p>
+                        </div>
+                        <!-- Testimonial 3 -->
+                        <div class="testimonial-slide">
+                            <span class="material-icons quote-icon">format_quote</span>
+                            <p class="feedback">"The community support is fantastic. It's great to be part of a network that genuinely cares about your growth."</p>
+                            <img src="https://placehold.co/80x80/228B22/ffffff?text=P3" alt="Intern Photo 3" class="testimonial-author-photo">
+                            <p class="testimonial-author-name">Charlie Brown</p>
+                        </div>
+                        <!-- Testimonial 4 -->
+                        <div class="testimonial-slide">
+                            <span class="material-icons quote-icon">format_quote</span>
+                            <p class="feedback">"Flexible learning options allowed me to balance my studies with practical experience. Highly recommend!"</p>
+                            <img src="https://placehold.co/80x80/228B22/ffffff?text=P4" alt="Intern Photo 4" class="testimonial-author-photo">
+                            <p class="testimonial-author-name">Diana Prince</p>
+                        </div>
+                        <!-- Testimonial 5 -->
+                        <div class="testimonial-slide">
+                            <span class="material-icons quote-icon">format_quote</span>
+                            <p class="feedback">"This program truly prepares you for the industry. I feel confident about my career path now."</p>
+                            <img src="https://placehold.co/80x80/228B22/ffffff?text=P5" alt="Intern Photo 5" class="testimonial-author-photo">
+                            <p class="testimonial-author-name">Ethan Hunt</p>
+                        </div>
+                    </div>
+                    <button class="testimonials-prev material-icons">chevron_left</button>
+                    <button class="testimonials-next material-icons">chevron_right</button>
+                </div>
+                <div class="testimonial-dots">
+                    <span class="dot active" data-slide-index="0"></span>
+                    <span class="dot" data-slide-index="1"></span>
+                    <span class="dot" data-slide-index="2"></span>
+                    <span class="dot" data-slide-index="3"></span>
+                    <span class="dot" data-slide-index="4"></span>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="footer">
+                <div class="footer-left">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-nav-list">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="program.html">Programs</a></li>
+                        <li><a href="verify.html">Verify Certificate</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="login.html">View Dashboard</a></li>
+                    </ul>
+                </div>
+                <div class="footer-right">
+                    <div class="footer-logo-placeholder">
+                        <img style="width:100%;" src="IMG/logo2bnav.svg">
+                    </div>
+                    <p><strong>Phone:</strong> +91 00000 00000<br><strong>Email:</strong> prajwalj2006@gmail.com<br><strong>LinkedIn:</strong> innovativechallenger</p>
+                    <p>--</p>
+                    <p>&copy; 2024. All Rights Reserved.<br>Made By Prajwal (RealJupiter05) for a<br>design challenge.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="JS/loaderscript.js"></script>
+    <script src="JS/navbar.js"></script>
+    <script src="JS/typewriter.js"></script>
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Testimonials Slider JavaScript
+            const testimonialsWrapper = document.querySelector('.testimonials-wrapper');
+            const testimonialsSlides = document.querySelectorAll('.testimonial-slide');
+            const testimonialsPrevBtn = document.querySelector('.testimonials-prev');
+            const testimonialsNextBtn = document.querySelector('.testimonials-next');
+            const testimonialDotsContainer = document.querySelector('.testimonial-dots');
+            const testimonialDots = document.querySelectorAll('.testimonial-dots .dot');
+
+            let currentTestimonialIndex = 0;
+            const testimonialsPerPage = 1; // Always show one testimonial for this slider
+            const totalTestimonials = testimonialsSlides.length;
+
+            // Function to update the slider position
+            const updateTestimonialsSlider = () => {
+                const slideWidth = testimonialsSlides[0].offsetWidth + (2 * 10); // slide width + margin-left + margin-right
+                testimonialsWrapper.style.transform = `translateX(-${currentTestimonialIndex * slideWidth}px)`;
+
+                // Update active dot
+                testimonialDots.forEach((dot, index) => {
+                    if (index === currentTestimonialIndex) {
+                        dot.classList.add('active');
+                    } else {
+                        dot.classList.remove('active');
+                    }
+                });
+            };
+
+            // Event listener for next button
+            testimonialsNextBtn.addEventListener('click', () => {
+                currentTestimonialIndex = (currentTestimonialIndex + 1) % totalTestimonials;
+                updateTestimonialsSlider();
+            });
+
+            // Event listener for previous button
+            testimonialsPrevBtn.addEventListener('click', () => {
+                currentTestimonialIndex = (currentTestimonialIndex - 1 + totalTestimonials) % totalTestimonials;
+                updateTestimonialsSlider();
+            });
+
+            // Event listeners for dots
+            testimonialDots.forEach(dot => {
+                dot.addEventListener('click', (e) => {
+                    const index = parseInt(e.target.dataset.slideIndex);
+                    currentTestimonialIndex = index;
+                    updateTestimonialsSlider();
+                });
+            });
+
+            // Initial update
+            updateTestimonialsSlider();
+
+            // Optional: Auto-slide testimonials
+            // setInterval(() => {
+            //     testimonialsNextBtn.click();
+            // }, 5000); // Change slide every 5 seconds
+
+            // Auto-update slider on window resize to fix layout issues
+            window.addEventListener('resize', updateTestimonialsSlider);
+
+            // Removed slider JavaScript for 'Why Inlighn Tech?' section (Third section)
+            // as it is now a static grid.
+        });
+    </script>
+</body>
+
+</html>
