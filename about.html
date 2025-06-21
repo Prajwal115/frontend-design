@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Inlighn Tech</title>
+    <link rel="stylesheet" href="CSS/navbar.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: black;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            color: white; /* Default text color for body */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Ensure body takes at least full viewport height */
+        }
+
+        main {
+            flex-grow: 1; /* Allows main content to take available space */
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center content horizontally */
+            text-align: center; /* Center text within content */
+            max-width: 1000px; /* Limit content width for better readability */
+            margin: 0 auto; /* Center the main content block */
+        }
+
+        .about-text-content { /* Renamed from program-text-content */
+            margin-bottom: 40px; /* Space below the heading and description */
+            padding: 0 20px; /* Add some horizontal padding */
+        }
+
+        main h1 {
+            color: #91BBFA;
+            font-family: "Inter", sans-serif;
+            font-weight: 700;
+            font-size: 55px;
+            margin: 0;
+            padding: 0;
+            line-height: 1.2;
+        }
+
+        .about-text-content p { /* Adjusted for the paragraph text */
+            color: white;
+            font-family: 'Inter', sans-serif; /* Using Inter for the body text */
+            font-size: 18px;
+            font-weight: 400;
+            margin-top: 10px;
+            margin-bottom: 0;
+            padding: 0;
+            line-height: 1.5;
+            max-width: 700px; /* Limit width of paragraph for readability */
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Our Certifications Section */
+        .certifications-section {
+            padding: 60px 20px;
+            background-color: #0d0d0d;
+            width: 100%;
+            box-sizing: border-box;
+            margin-bottom: 40px;
+        }
+
+        .certifications-section h2 {
+            font-size: 45px;
+            font-weight: 700;
+            color: #91BBFA;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .certification-images-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .certification-images-container img {
+            width: 100%;
+            max-width: 280px; /* Max width for each image */
+            height: auto;
+            border: 1px solid #84E7DC; /* Green/blue border */
+            border-radius: 12px;
+            object-fit: cover;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .certification-images-container img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Our Mission Section */
+        .mission-section {
+            padding: 60px 20px;
+            background-color: black;
+            width: 100%;
+            box-sizing: border-box;
+            margin-bottom: 40px;
+        }
+
+        .mission-section h2 {
+            font-size: 45px;
+            font-weight: 700;
+            color: #91BBFA;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .mission-boxes-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .mission-box {
+            background-color: transparent;
+            border: 1px solid #91BBFA; /* Blue border */
+            border-radius: 12px;
+            width: calc(33.333% - 20px); /* 3 boxes per row, accounting for gap */
+            min-width: 280px; /* Minimum width for responsiveness */
+            padding: 25px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .mission-box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .mission-box h3 {
+            font-size: 28px;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .mission-box p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #ccc;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            main h1 {
+                font-size: 45px;
+            }
+            .about-text-content p {
+                font-size: 16px;
+            }
+            .certifications-section h2, .mission-section h2 {
+                font-size: 35px;
+            }
+            .certification-images-container img {
+                max-width: 250px;
+            }
+            .mission-box {
+                width: calc(50% - 20px); /* 2 boxes per row on tablets */
+            }
+        }
+
+        @media (max-width: 480px) {
+            main h1 {
+                font-size: 35px;
+            }
+            .about-text-content p {
+                font-size: 14px;
+            }
+            .certifications-section h2, .mission-section h2 {
+                font-size: 28px;
+            }
+            .certification-images-container img {
+                max-width: 100%; /* Full width on very small screens */
+            }
+            .mission-box {
+                width: 100%; /* 1 box per row on very small screens */
+            }
+            .certifications-section, .mission-section {
+                padding: 40px 15px;
+            }
+            .certification-images-container, .mission-boxes-container {
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="navbar-brand">
+            <img src="IMG/logo2bnav.svg" alt="Inlighn Tech Logo" class="navbar-logo">
+        </a>
+        <ul class="navbar-nav">
+            <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+            <li class="nav-item"><a href="program.html" class="nav-link">Programs</a></li>
+            <li class="nav-item"><a href="verify.html" class="nav-link">Verify Certificate</a></li>
+            <li class="nav-item"><a href="about.html" class="nav-link" id="current">About Us</a></li>
+        </ul>
+        <div class="navbar-actions">
+            <a href="login.html" class="btn btn-dashboard">View Dashboard</a>
+        </div>
+        <div class="hamburger-menu">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+    </nav>
+
+    <div class="mobile-nav-overlay" style="display:none;">
+        <div class="close-btn">&times;</div>
+        <ul class="mobile-nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="program.html">Programs</a></li>
+            <li><a href="verify.html">Verify Certificate</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="login.html" class="btn btn-dashboard-mobile">Dashboard</a></li>
+        </ul>
+    </div>
+
+    <main>
+        <div class="about-text-content">
+            <h1>About Us</h1>
+            <p>At INLIGHN TECH, we believe that the future of education lies in bridging the gap between academic learning and industry needs. Founded with a passion for providing meaningful and immersive learning experiences, we offer internship programs that equip students and young professionals with practical skills in Cyber Security, Full Stack Development, Data Science, and Project Management.</p>
+        </div>
+
+        <!-- Our Certifications Section -->
+        <div class="certifications-section">
+            <h2>Our Certifications</h2>
+            <div class="certification-images-container">
+                <img src="https://placehold.co/400x300/3B2D62/ffffff?text=Certification+1" alt="Certification 1">
+                <img src="https://placehold.co/400x300/3B2D62/ffffff?text=Certification+2" alt="Certification 2">
+                <img src="https://placehold.co/400x300/3B2D62/ffffff?text=Certification+3" alt="Certification 3">
+            </div>
+        </div>
+
+        <!-- Our Mission Section -->
+        <div class="mission-section">
+            <h2>Our Mission</h2>
+            <div class="mission-boxes-container">
+                <div class="mission-box">
+                    <h3>Empowerment Through Education</h3>
+                    <p>To empower individuals with cutting-edge skills and knowledge, fostering their growth into future tech leaders.</p>
+                </div>
+                <div class="mission-box">
+                    <h3>Practical, Real-world Experience</h3>
+                    <p>To provide hands-on, immersive experiences that bridge the gap between theoretical learning and industry demands.</p>
+                </div>
+                <div class="mission-box">
+                    <h3>Community and Collaboration</h3>
+                    <p>To build a vibrant community where innovation thrives through collaboration, mentorship, and continuous learning.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="JS/navbar.js"></script>
+</body>
+</html>
