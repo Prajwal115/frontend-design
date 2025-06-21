@@ -1,0 +1,230 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap'); /* Ensure Inter font is loaded with appropriate weights */
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap');/* Ensure Inter font is loaded with appropriate weights */
+
+
+html, body {
+    margin: 0;
+    padding:0;
+    overflow-x: hidden; /* Hide scrollbar initially to prevent content flash */
+    font-family: "Inter", sans-serif;
+    background-color: black;
+}
+
+
+#loader-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000; /* Black background as per your image */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* Ensure it's on top of everything */
+    opacity: 1;
+    transition: opacity 0.5s ease-out; /* Fade out effect for the loader wrapper */
+}
+
+#loader-wrapper.hidden {
+    opacity: 0;
+    visibility: hidden; /* Hide completely after fade out */
+}
+
+#loader {
+    text-align: center;
+}
+
+#loader #logo {
+    width: 250px; /* Adjust as needed */
+    height: auto;
+    margin-bottom: 20px;
+}
+
+#progress-bar-container {
+    width: 300px; /* Adjust as needed */
+    height: 8px;
+    background-color: #333; /* Darker background for the progress bar track */
+    border-radius: 0; /* Changed from 4px to 0 */
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+#progress-bar {
+    width: 0%;
+    height: 100%;
+    background-color: #fff; /* White fill for the progress bar */
+    border-radius: 0; /* Changed from 4px to 0 */
+    transition: width linear; /* We'll control duration with JS */
+}
+
+#content {
+    opacity: 0; /* Initially hidden */
+    transition: opacity 1s ease-in; /* Fade in effect for the content */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+#content.fade-in-content.visible {
+    opacity: 1;
+    overflow-y: auto; /* Re-enable scrolling after content loads */
+}
+
+/* Updates section and Slider */
+.updates {
+    height: 45px;
+    background-color: #1e1e1e;
+    color: #f1f1f1;
+    display: flex; /* Use flexbox for layout of slider and arrows */
+    align-items: center; /* Vertically center items */
+    justify-content: center; /* Horizontally center the slider content */
+    position: relative; /* For absolute positioning of arrows */
+    overflow: hidden; /* Hide overflowing slider content */
+    width: 100%; /* Ensure it spans full width */
+}
+
+.updates-slider-container {
+    width: 80%; /* Adjust as needed to give space for arrows */
+    max-width: 800px; /* Max width for the slider content */
+    overflow: hidden; /* Hide anything outside this container */
+    text-align: center; /* Center the text within the visible area */
+}
+
+.updates-slider {
+    display: flex;
+    transition: transform 0.8s ease-in-out; /* Smooth transition for sliding */
+    width: fit-content; /* Allow the slider to be as wide as its content */
+}
+
+.updates-item {
+    min-width: 100%; /* Each item takes full width of its container */
+    flex-shrink: 0; /* Prevent items from shrinking */
+    transform: translateX(-20%);
+    display: flex; /* Use flex to center text within the item */
+    align-items: center;
+    justify-content: center;
+}
+
+.updates-item p {
+    margin: 0; /* Remove default paragraph margin - THIS IS THE FIX FOR ALIGNMENT */
+    padding: 9px 0; /* Padding for the text within the item */
+    font-size: 14px;
+    font-weight: 400;
+    white-space: nowrap; /* Prevent text from wrapping */
+    text-align: center; /* Ensure text is centered if it doesn't fill the width */
+}
+
+.updates strong {
+    text-decoration: none;
+    color: #84E7DC;
+}
+
+
+
+.updates p a .material-icons {
+
+    color:white;
+    vertical-align: middle; /* Align icon with text baseline */
+    margin-left: 3px; /* Small space between "View" and arrow */
+}
+
+.slider-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #fff;
+    font-size: 2em; /* Size for arrow icons */
+    cursor: pointer;
+    z-index: 10; /* Ensure arrows are clickable */
+    padding: 0 10px;
+    transition: color 0.3s ease;
+}
+
+.slider-nav:hover {
+    color: #84E7DC;
+}
+
+.left-arrow {
+    left: 10px;
+}
+
+.right-arrow {
+    right: 10px;
+}
+
+/* Also, locate this rule in your CSS/index.css and make sure it has no transform property */
+/* It should just be: */
+/*
+main .updates {
+    height: 45px;
+    background-color: #000000;
+    color: #f1f1f1;
+}
+*/
+/* The updated code above for .updates handles the display flex, etc. */
+
+main .left{
+    float:left;
+    width:60%;
+}
+main .right{
+    float:right;
+    width:40%;
+}
+
+.left #typewriter{
+    margin-top: 10px;
+    color:#ffffff;
+    font-size: 70px;
+    font-family: "Source Code Pro",monospace;
+    font-weight: 800;
+    line-height: 0.8;
+    margin-bottom: 30px;
+}
+
+.left #headline{
+    font-size: 25px;
+    color:#91BBFA;
+    font-family: "Inter",sans-serif;
+    font-weight: 600;
+    margin-bottom: -10px;
+}
+
+.left #des{
+    color:white;
+        font-weight: 400;
+    font-size: 20px;
+        margin-bottom: 30px;
+    font-family: "Inter",sans-serif;
+}
+
+#getstart{
+    width:190px;
+    height:50px;
+    cursor: pointer;
+    color:white;
+    background-color: black;
+    border:1px solid #84E7DC;
+    border-radius: 13px;
+    font-size: 17px;
+    font-weight: 600;
+    transition: 0.7s ease;
+}
+
+#getstart:hover{
+    background-color: #84E7DC;
+    color:black;
+    transition: 0.7s ease;
+}
+
+#why{
+    text-align: left;
+
+    font-size: 20px;
+    margin-left: 30px;
+    text-transform: uppercase;
+    text-align: center;
+    font-family: "Inter",sans-serif;
+    color: rgb(255, 255, 255);
+    font-weight: 300;
+}
